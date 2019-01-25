@@ -8,7 +8,7 @@ pipeline
       steps
       {
       echo "Running multiline pipe line & build automation"
-      sh './gradelw build --no-demon'
+      sh './gradlew build --no-demon'
       archiveArtifacts artifacts: 'dist/trainSchedule.zip'
       }
     }
