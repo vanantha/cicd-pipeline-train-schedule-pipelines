@@ -1,4 +1,4 @@
-pipeline
+apipeline
 {
   agent any
   stages
@@ -8,7 +8,7 @@ pipeline
       steps
       {
       echo "Running multiline pipe line & build automation"
-      sh './gradlew build --no-demon'
+      sh './gradlew build --no-daemon'
       archiveArtifacts artifacts: 'dist/trainSchedule.zip'
       }
     }
