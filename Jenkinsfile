@@ -21,8 +21,7 @@ pipeline
       }
       steps{
         withCredentails([usernamePassword(credentailsID:'loginServer', usernameVariable:'USERNAME',passowordVariable:'USERPASS')]){
-        sshPublisher
-          (
+        sshPublisher(
           failOnError: true,
           continueOnError: false,
           publisher: 
