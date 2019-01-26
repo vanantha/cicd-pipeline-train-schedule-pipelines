@@ -21,22 +21,34 @@ pipeline
       }
       steps{
         withCredentails([usernamePassword(credentailsID:'loginServer', usernameVariable:'USERNAME',passowordVariable:'USERPASS')]){
-        sshPublisher(
+        sshPublisher
+          (
           failOnError: true,
           continueOnError: false,
-          sshCredentials:[
-            username: "$USERNAME",
-            encryptedPassPhrase: "$USERPASS"
-          ],
-          transfers:[
-            sshTransfer(
-              sourceFiles: 'dist/trainSchedule.zip',
-              removePrefix: 'dist/',
-              remoteDirectory: '/temp',
-              execCommand: 'sudo /usr/bin/systemctl stop train-schedule && rm -rf /opt/train-schedule && sudo /usr/bin/systemctl start train-schedule'
+          publisher: 
+          [
+            sshPublisherDesc
+            {
+              configName: 'staging',
+              sshCredentials:
+                [
+                username: "$USERNAME",
+                encryptedPassPhrase: "$USERPASS"
+                ],
+            transfers:
+                [
+                 sshTransfer
+                  (
+                    sourceFiles: 'dist/trainSchedule.zip',
+                    removePrefix: 'dist/',
+                    remoteDirectory: '/temp',
+                    execCommand: 'sudo /usr/bin/systemctl stop train-schedule && rm -rf /opt/train-schedule && sudo /usr/bin/systemctl start train-schedule'
+                  )
+                ]
+        
+              }
+            ]
             )
-          ]
-        )
         }
       }
     }
